@@ -1,13 +1,17 @@
 import { Controller } from "@nestjs/common";
 import { MessagePattern, Payload } from "@nestjs/microservices";
-
+import { EmailService } from "./email/email.service";
 @Controller()
 export class AppController {
 
-    @MessagePattern('MESSSSAGE')
+    constructor(
+        private readonly emailService: EmailService
+    ){}
+
+    @MessagePattern("SEND_EMAIL_ACCOUNT_VERIFICATION")
     async getUser(@Payload() data:any) {
-        console.log("Received data:", data)
-        return "Received with success!"
+        await this.emailService.sendEmail()
+        return "Email Send with success!"
     }
 
 }
