@@ -13,7 +13,10 @@ async function bootstrap() {
         queue: msQueueName,
         queueOptions: {
           durable: true
-        }
+        },
+        noAck: false,
+        persistent: true,
+        prefetchCount: 1
       }
     }
   );

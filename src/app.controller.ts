@@ -1,5 +1,5 @@
 import { Controller } from "@nestjs/common";
-import { MessagePattern, Payload } from "@nestjs/microservices";
+import { Ctx, MessagePattern, Payload, RmqContext } from "@nestjs/microservices";
 import { EmailService } from "./email/email.service";
 @Controller()
 export class AppController {
@@ -9,8 +9,12 @@ export class AppController {
     ){}
 
     @MessagePattern("SEND_EMAIL_ACCOUNT_VERIFICATION")
-    async getUser(@Payload() data:any) {
-        await this.emailService.sendEmail()
+    async getUser(@Payload() data:any, @Ctx() context: RmqContext) {
+        const channel = context.getChannelRef();
+        const originalMsg = context.getMessage();
+      
+        // await this.emailService.sendEmail()
+        channel.ack(originalMsg);
         return "Email Send with success!"
     }
 
