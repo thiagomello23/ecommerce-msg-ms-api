@@ -1,5 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import * as nodemailer from "nodemailer"
+import { SendEmailVerification } from "src/dto/send-email-verification.dto";
 
 @Injectable()
 export class EmailService {
@@ -16,13 +17,19 @@ export class EmailService {
         })
     }
 
-    async sendEmail() {
+    async sendEmail(data: SendEmailVerification) {
         await this.transporter.sendMail({
             from: `<${process.env.EMAIL_USER}>`,
-            to: process.env.EMAIL_USER,
-            subject: "Hi",
-            text: "Hi",
-            html: "<b>Hello world!</b>"
+            to: data.userEmail,
+            subject: "Email verification",
+            text: "Account email verification",
+            html: `
+                <div>
+                    <h3>
+                        Hi ${data.firstName}, Your code for account verification is: ${data.verificationCode}
+                    </h3>
+                </div>
+            `
         })
     }
 }
