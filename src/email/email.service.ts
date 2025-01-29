@@ -17,7 +17,7 @@ export class EmailService {
         })
     }
 
-    async sendEmail(data: SendEmailVerification) {
+    async sendEmailVerificationCode(data: SendEmailVerification) {
         await this.transporter.sendMail({
             from: `<${process.env.EMAIL_USER}>`,
             to: data.userEmail,
