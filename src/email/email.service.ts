@@ -1,5 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import * as nodemailer from "nodemailer"
+import { SendEmailRecuperationAccount } from "src/dto/send-email-recuperation-account.dto";
 import { SendEmailVerification } from "src/dto/send-email-verification.dto";
 
 @Injectable()
@@ -28,6 +29,27 @@ export class EmailService {
                     <h3>
                         Hi ${data.firstName}, Your code for account verification is: ${data.verificationCode}
                     </h3>
+                </div>
+            `
+        })
+    }
+
+    async sendEmailRecuperationAccount(
+        data: SendEmailRecuperationAccount
+    ) {
+        await this.transporter.sendMail({
+            from: `${process.env.EMAIL_USER}`,
+            to: data.email,
+            subject: "Email recuperation account",
+            text: "Email to change password",
+            html: `
+                <div>
+                    <h3>
+                        Hi ${data.firstName}, click here to redefine your password:
+                    </h3>
+                    <a href="${process.env.FRONTEND_URL}/reset-password?token=${data.token}">
+                        <bold>RESET PASSWORD</bold>
+                    </a>
                 </div>
             `
         })

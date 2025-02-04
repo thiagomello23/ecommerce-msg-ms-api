@@ -4,6 +4,7 @@ import { EmailService } from "./email/email.service";
 import { SendEmailVerification } from "./dto/send-email-verification.dto";
 import { SendSMSVerification } from "./dto/send-sms-verification.dto";
 import { TwilioService } from "./twilio/twilio.service";
+import { SendEmailRecuperationAccount } from "./dto/send-email-recuperation-account.dto";
 @Controller()
 export class AppController {
 
@@ -20,6 +21,20 @@ export class AppController {
         channel.ack(originalMsg);
         return {
             message: "Email send with success!"
+        }
+    }
+
+    @MessagePattern("SEND_EMAIL_RECUPERATION_ACCOUNT")
+    async sendEmailRecuperationAccount(
+        @Payload() data: SendEmailRecuperationAccount,
+        @Ctx() context: RmqContext
+    ) {
+        const channel = context.getChannelRef()
+        const originalMsg = context.getMessage()
+        await this.emailService.sendEmailRecuperationAccount(data)
+        channel.ack(originalMsg)
+        return {
+            message: "Recuperation account email has been send with success!"
         }
     }
 
