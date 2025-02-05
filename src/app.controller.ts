@@ -1,10 +1,10 @@
 import { Controller } from "@nestjs/common";
 import { Ctx, MessagePattern, Payload, RmqContext } from "@nestjs/microservices";
 import { EmailService } from "./email/email.service";
-import { SendEmailVerification } from "./dto/send-email-verification.dto";
-import { SendSMSVerification } from "./dto/send-sms-verification.dto";
+import { SendEmailVerification } from "./email/dto/send-email-verification.dto";
+import { SendSMSVerification } from "./twilio/dto/send-sms-verification.dto";
 import { TwilioService } from "./twilio/twilio.service";
-import { SendEmailRecuperationAccount } from "./dto/send-email-recuperation-account.dto";
+import { SendEmailRecuperationAccount } from "./email/dto/send-email-recuperation-account.dto";
 @Controller()
 export class AppController {
 

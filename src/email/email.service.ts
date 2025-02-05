@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import * as nodemailer from "nodemailer"
-import { SendEmailRecuperationAccount } from "src/dto/send-email-recuperation-account.dto";
-import { SendEmailVerification } from "src/dto/send-email-verification.dto";
+import { SendEmailRecuperationAccount } from "src/email/dto/send-email-recuperation-account.dto";
+import { SendEmailVerification } from "src/email/dto/send-email-verification.dto";
 
 @Injectable()
 export class EmailService {

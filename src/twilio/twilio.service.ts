@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { SendSMSVerification } from "src/dto/send-sms-verification.dto";
+import { SendSMSVerification } from "src/twilio/dto/send-sms-verification.dto";
 import * as twilio from "twilio"
 
 @Injectable()
